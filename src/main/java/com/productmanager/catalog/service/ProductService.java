@@ -3,6 +3,7 @@ package com.productmanager.catalog.service;
 import com.productmanager.catalog.exception.ProductNotFoundException;
 import com.productmanager.catalog.model.CreateProductRequest;
 import com.productmanager.catalog.model.Product;
+import com.productmanager.catalog.model.UpdateProductRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -28,6 +29,19 @@ public class ProductService {
                 request.price(), request.stock(), request.category().trim());
         products.add(product);
         return product;
+    }
+
+    public synchronized Product update(Long id, UpdateProductRequest request) {
+        for (int index = 0; index < products.size(); index++) {
+            Product product = products.get(index);
+            if (product.id().equals(id)) {
+                Product updated = new Product(id, request.name().trim(), request.price(),
+                        request.stock(), request.category().trim());
+                products.set(index, updated);
+                return updated;
+            }
+        }
+        throw new ProductNotFoundException(id);
     }
 
     public synchronized Product updateStock(Long id, int stock) {
