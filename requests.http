@@ -1,0 +1,21 @@
+@baseUrl = http://localhost:8080
+
+GET {{baseUrl}}/api/productos
+
+###
+POST {{baseUrl}}/api/productos
+Content-Type: application/json
+
+{"name":"Mechanical keyboard","price":159900,"stock":12,"category":"Peripherals"}
+
+###
+GET {{baseUrl}}/api/productos/1
+
+###
+PUT {{baseUrl}}/api/productos/1/stock
+Content-Type: application/json
+
+{"stock":8}
+
+###
+DELETE {{baseUrl}}/api/productos/1
